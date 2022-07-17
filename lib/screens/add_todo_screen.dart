@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:f1list/custom_widgets.dart';
 import 'package:f1list/models/todo_model.dart';
 import 'package:f1list/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -71,9 +72,12 @@ class _AddToDoScreenState extends State<AddToDoScreen> {
                       dateAdded: DateTime.now());
                   try {
                     await DatabaseService().addToDoItem(todoItem);
+                    CustomWidgets.showSnackBar(
+                        context, "New Todo Added succefully");
                   } catch (e) {
-                    print("error is ${e.toString()}");
+                    CustomWidgets.showSnackBar(context, e.toString());
                   }
+                  Navigator.of(context).pop();
                 },
                 icon: Icon(Icons.save),
                 label: Text("Save To Do"))
